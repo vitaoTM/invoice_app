@@ -1,0 +1,16 @@
+<div class="mb-10">
+  <nav class="flex text-slate-400 text-xs font-bold uppercase tracking-widest mb-4" aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-2">
+      <li><%= link_to "Invoices", invoices_path, class: "hover:text-indigo-600 transition-colors" %></li>
+      <li class="flex items-center space-x-2">
+        <svg class="w-3 h-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <span class="text-slate-900">New Invoice</span>
+      </li>
+    </ol>
+  </nav>
+
+  <h1 class="text-3xl font-black text-slate-900 tracking-tight">Create New Invoice</h1>
+  <p class="text-slate-500 mt-2">Fill in the details below to generate a new professional invoice.</p>
+</div>
+
+<%= render "form", invoice: @invoice %>

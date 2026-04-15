@@ -8,3 +8,53 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Tom Select Tailwind Compatibility */
+.ts-wrapper.single .ts-control {
+  border-radius: 0.75rem !important;
+  border-color: #e2e8f0 !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.ts-wrapper.focus .ts-control {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+}
+
+.ts-dropdown {
+  border-radius: 0.75rem !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-top: 0.5rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ts-dropdown .active {
+  background-color: #f5f3ff !important;
+  color: #4f46e5 !important;
+}
+
+/* Visual Search Indicator for Tom Select */
+.ts-wrapper .ts-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 1.1rem !important;
+  padding-right: 2.5rem !important;
+}
+
+.ts-wrapper.has-items .ts-control {
+  background-image: none !important;
+}
+
+.ts-dropdown .dropdown-input-wrap {
+  padding: 0.5rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.ts-dropdown .dropdown-input {
+  border-radius: 0.5rem !important;
+  border: 1px solid #e2e8f0 !important;
+  font-size: 0.875rem !important;
+}

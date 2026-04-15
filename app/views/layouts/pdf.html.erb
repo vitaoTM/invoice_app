@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            color: #333; 
+            line-height: 1.5; 
+            background-color: #f9f9f9; 
+            padding: 20px; 
+            margin: 0;
+            -webkit-print-color-adjust: exact;
+        }
+        .invoice-box { 
+            max-width: 850px; 
+            margin: auto; 
+            padding: 40px; 
+            border: 100px solid #ddd; 
+            background: #fff; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
+        }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            border-bottom: 3px solid #00a1de; 
+            padding-bottom: 20px; 
+            margin-bottom: 30px; 
+        }
+        .company-info h1 { color: #004a99; margin: 0; font-size: 24px; text-transform: uppercase; }
+        .company-info p { margin: 2px 0; font-size: 13px; color: #666; }
+        
+        .badge-kvk { 
+            display: inline-block; 
+            background: #eef7ff; 
+            border: 1px solid #00a1de; 
+            color: #004a99; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: 12px; 
+            margin-top: 5px; 
+        }
+        
+        .details-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+            margin-bottom: 30px; 
+        }
+        .details-grid h3 { 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            color: #999; 
+            border-bottom: 1px solid #eee; 
+            padding-bottom: 5px; 
+            margin-bottom: 10px;
+        }
+        
+        .itinerary-box { 
+            background: #f0f4f8; 
+            padding: 20px; 
+            border-left: 5px solid #00a1de; 
+            margin-bottom: 30px; 
+            border-radius: 4px; 
+        }
+        .itinerary-box strong { font-size: 13px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th { background: #004a99; color: white; text-align: left; padding: 12px; font-size: 14px; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+        
+        .totals { text-align: right; margin-top: 20px; }
+        .totals p { margin: 5px 0; font-size: 16px; }
+        .grand-total { 
+            font-size: 22px !important; 
+            font-weight: bold; 
+            color: #004a99; 
+            border-top: 2px solid #004a99; 
+            display: inline-block; 
+            padding-top: 10px; 
+            margin-top: 10px;
+        }
+        
+        .footer { 
+            margin-top: 50px; 
+            padding-top: 20px; 
+            border-top: 1px solid #eee; 
+            font-size: 11px; 
+            color: #888; 
+            text-align: center; 
+        }
+
+        /* Helpers for PDF rendering */
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            .invoice-box { border: none; box-shadow: none; padding: 0; }
+        }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-box">
+      <%= yield %>
+    </div>
+  </body>
+</html>

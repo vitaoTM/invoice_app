@@ -1,0 +1,275 @@
+<%= form_with(model: invoice, class: "space-y-10", data: { controller: "line-items" }) do |f| %>
+  <% if invoice.errors.any? %>
+    <div
+      class="
+        bg-rose-50 border border-rose-200 text-rose-800 px-6 py-4 rounded-xl
+      "
+    >
+      <h2 class="text-sm font-bold uppercase tracking-wide mb-2"><%= pluralize(invoice.errors.count, "error") %>
+        prohibited this invoice from being saved:</h2>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <% invoice.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Invoice Details -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <h2 class="text-lg font-bold text-slate-900 mb-6 flex items-center">
+        <span
+          class="
+            w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center
+            mr-3 text-sm
+          "
+        >01</span>
+        Invoice Details
+      </h2>
+
+      <div class="space-y-6">
+        <div data-controller="autocomplete">
+          <%= f.label :client_id,
+                  "Search Client",
+                  class:
+                    "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            <%= f.search_field :client_name,
+                           value: invoice.client&.name,
+                           placeholder: "Type to search...",
+                           list: "clients-list",
+                           class: "pl-10 py-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm",
+                           data: {
+                             autocomplete_target: "input",
+                             action: "input->autocomplete#change"
+                           } %>
+
+            <datalist id="clients-list" data-autocomplete-target="datalist">
+              <% Client.order(:name).each do |client| %>
+                <option value="<%= client.name %>" data-id="<%= client.id %>">
+              <% end %>
+            </datalist>
+
+            <%= f.hidden_field :client_id, data: { autocomplete_target: "hidden" } %>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :invoice_date,
+                    class:
+                      "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+            <%= f.date_field :invoice_date,
+                         class:
+                           "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+          </div>
+          <div>
+            <%= f.label :status,
+                    class:
+                      "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+            <%= f.select :status,
+                     Invoice::STATUSES.map { |s| [s.capitalize, s] },
+                     {},
+                     class:
+                       "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Event Details -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <h2 class="text-lg font-bold text-slate-900 mb-6 flex items-center">
+        <span
+          class="
+            w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center
+            mr-3 text-sm
+          "
+        >02</span>
+        Event Details
+      </h2>
+
+      <div class="space-y-6">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :event_type,
+                    "Type",
+                    class:
+                      "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+            <%= f.text_field :event_type,
+                         placeholder: "e.g. Wedding",
+                         class:
+                           "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+          </div>
+          <div>
+            <%= f.label :event_date,
+                    "Date",
+                    class:
+                      "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+            <%= f.date_field :event_date,
+                         class:
+                           "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :event_location,
+                  "Location",
+                  class:
+                    "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+          <%= f.text_field :event_location,
+                       placeholder: "e.g. Eagle Beach",
+                       class:
+                         "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+        </div>
+
+        <div>
+          <%= f.label :schedule_notes,
+                  "Schedule Notes",
+                  class:
+                    "block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" %>
+          <%= f.text_area :schedule_notes,
+                      rows: 2,
+                      placeholder: "Specific timing or setup notes...",
+                      class:
+                        "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Line Items -->
+  <div
+    class="
+      bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden
+    "
+  >
+    <div class="p-8 border-b border-slate-100 flex items-center justify-between">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center">
+        <span
+          class="
+            w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center
+            mr-3 text-sm
+          "
+        >03</span>
+        Services & Line Items
+      </h2>
+
+      <button
+        type="button"
+        data-action="line-items#add"
+        class="
+          inline-flex items-center px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700
+          text-xs font-bold rounded-lg transition-colors duration-200 uppercase
+          tracking-wide border border-slate-200
+        "
+      >
+        <span class="text-lg mr-2">+</span>
+        Add Item
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr
+            class="
+              bg-slate-50/50 text-slate-500 text-[11px] font-bold uppercase tracking-wider
+              border-b border-slate-100
+            "
+          >
+            <th class="px-8 py-4 w-1/2">Description</th>
+            <th class="px-4 py-4 w-20 text-center">Qty</th>
+            <th class="px-4 py-4 w-32 text-right">Price</th>
+            <th class="px-4 py-4 w-32 text-right">Subtotal</th>
+            <th class="px-8 py-4 w-16"></th>
+          </tr>
+        </thead>
+        <tbody data-line-items-target="container" class="divide-y divide-slate-100">
+          <%= f.fields_for :line_items do |li| %>
+            <%= render "line_item_fields", f: li %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- Template for JS -->
+    <template data-line-items-target="template">
+      <%= f.fields_for :line_items, LineItem.new, child_index: "NEW_RECORD" do |li| %>
+        <%= render "line_item_fields", f: li %>
+      <% end %>
+    </template>
+  </div>
+  <!-- Totals Section -->
+  <div class="flex flex-col md:flex-row md:justify-end gap-8">
+    <div
+      class="
+        bg-indigo-600 rounded-2xl shadow-lg p-8 md:w-96 text-white space-y-6
+      "
+    >
+      <div class="flex justify-between items-center text-indigo-100">
+        <span class="text-xs font-bold uppercase tracking-widest">Subtotal</span>
+        <span class="font-mono text-lg font-medium" data-line-items-target="subtotal">
+          <%= number_to_currency(invoice.subtotal, unit: "$") %>
+        </span>
+      </div>
+
+      <div class="space-y-2">
+        <%= f.label :tax_amount,
+                class:
+                  "block text-xs font-bold text-indigo-100 uppercase tracking-widest" %>
+        <div class="relative">
+          <div
+            class="
+              absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none
+              text-indigo-300
+            "
+          >$</div>
+          <%= f.number_field :tax_amount,
+                         step: 0.01,
+                         class:
+                           "py-2 px-2 block w-full pl-8 rounded-xl border-transparent bg-indigo-500/30 text-white placeholder-indigo-300 focus:border-white focus:ring-0 sm:text-sm font-mono",
+                         data: {
+                           action: "input->line-items#recalculate",
+                           line_items_target: "taxInput",
+                         } %>
+        </div>
+        <%= f.text_field :tax_label,
+                     placeholder: "Tax label (e.g. Health Tax)",
+                     class:
+                       "block w-full mt-2 rounded-xl border-transparent bg-indigo-500/20 text-indigo-100 placeholder-indigo-400 focus:border-white focus:ring-0 text-[10px] font-bold uppercase tracking-widest" %>
+      </div>
+
+      <div
+        class="
+          pt-6 border-t border-indigo-500 flex justify-between items-baseline
+        "
+      >
+        <span class="text-xs font-bold uppercase tracking-widest">Grand Total</span>
+        <div class="text-right">
+          <span class="text-xs font-bold uppercase block text-indigo-200 mb-1"><%= current_business.currency %></span>
+          <span class="text-3xl font-mono font-bold" data-line-items-target="grandTotal">
+            <%= number_to_currency(invoice.total, unit: "$") %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Form Actions -->
+  <div
+    class="
+      flex items-center justify-end space-x-4 pt-4 border-t border-slate-200
+    "
+  >
+    <%= link_to "Cancel",
+    invoices_path,
+    class: "text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors" %>
+    <%= f.submit class:
+               "px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer" %>
+  </div>
+<% end %>
