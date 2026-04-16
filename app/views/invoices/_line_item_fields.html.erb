@@ -1,7 +1,7 @@
 <tr class="line-item-row group" data-line-items-target="row">
   <%= f.hidden_field :_destroy, data: { line_items_target: "destroyField" } %>
 
-  <td class="px-8 py-4">
+  <td class="px-4 sm:px-8 py-4">
     <%= f.text_field :description,
                  placeholder: "e.g. Photography Service",
                  class:
@@ -46,7 +46,7 @@
     </span>
   </td>
 
-  <td class="px-8 py-4 text-right">
+  <td class="px-4 sm:px-8 py-4 text-right">
     <button
       type="button"
       data-action="line-items#remove"

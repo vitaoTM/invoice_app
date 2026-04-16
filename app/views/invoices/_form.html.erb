@@ -17,7 +17,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Invoice Details -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-8">
       <h2 class="text-lg font-bold text-slate-900 mb-6 flex items-center">
         <span
           class="
@@ -85,7 +85,7 @@
       </div>
     </div>
     <!-- Event Details -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-8">
       <h2 class="text-lg font-bold text-slate-900 mb-6 flex items-center">
         <span
           class="
@@ -150,7 +150,7 @@
       bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden
     "
   >
-    <div class="p-8 border-b border-slate-100 flex items-center justify-between">
+    <div class="p-4 sm:p-8 border-b border-slate-100 flex items-center justify-between">
       <h2 class="text-lg font-bold text-slate-900 flex items-center">
         <span
           class="
@@ -176,7 +176,7 @@
     </div>
 
     <div class="overflow-x-auto">
-      <table class="w-full text-left border-collapse">
+      <table class="w-full text-left border-collapse min-w-[600px] sm:min-w-0">
         <thead>
           <tr
             class="
@@ -184,11 +184,11 @@
               border-b border-slate-100
             "
           >
-            <th class="px-8 py-4 w-1/2">Description</th>
-            <th class="px-4 py-4 w-20 text-center">Qty</th>
-            <th class="px-4 py-4 w-32 text-right">Price</th>
-            <th class="px-4 py-4 w-32 text-right">Subtotal</th>
-            <th class="px-8 py-4 w-16"></th>
+            <th class="px-4 sm:px-8 py-4 w-1/2">Description</th>
+            <th class="px-2 sm:px-4 py-4 w-20 text-center">Qty</th>
+            <th class="px-2 sm:px-4 py-4 w-32 text-right">Price</th>
+            <th class="px-2 sm:px-4 py-4 w-32 text-right">Subtotal</th>
+            <th class="px-4 sm:px-8 py-4 w-16"></th>
           </tr>
         </thead>
         <tbody data-line-items-target="container" class="divide-y divide-slate-100">
@@ -209,7 +209,7 @@
   <div class="flex flex-col md:flex-row md:justify-end gap-8">
     <div
       class="
-        bg-indigo-600 rounded-2xl shadow-lg p-8 md:w-96 text-white space-y-6
+        bg-indigo-600 rounded-2xl shadow-lg p-6 sm:p-8 md:w-96 text-white space-y-6
       "
     >
       <div class="flex justify-between items-center text-indigo-100">
