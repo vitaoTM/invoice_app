@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="flex items-center space-x-3">
+    <div class="flex items-center flex-wrap gap-2">
       <%= link_to edit_invoice_path(@invoice), class: "inline-flex items-center px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm" do %>
         <svg
           class="w-4 h-4 mr-2 text-slate-400"
@@ -79,14 +79,14 @@
   <div
     class="
       bg-white rounded-xl shadow-xl shadow-slate-200/50 border border-slate-200
-      overflow-hidden max-w-[850px] mx-auto p-12 md:p-16
+      overflow-hidden max-w-[850px] mx-auto p-4 sm:p-8 md:p-16
     "
   >
 
     <%# ---- Header ---- %>
     <div
       class="
-        flex justify-between items-start border-b-4 border-[#00a1de] pb-8 mb-10
+        flex flex-col sm:flex-row justify-between items-start gap-6 border-b-4 border-[#00a1de] pb-8 mb-10
       "
     >
       <div class="space-y-2">
@@ -157,15 +157,11 @@
       </div>
     <% end %>
 
-    <%# ---- Table ---- %>
-    <div class="overflow-hidden mb-8">
-      <table class="rounded rounded-xl w-full text-left border-collapse">
+    <%# ---- Table (desktop) ---- %>
+    <div class="hidden sm:block overflow-x-auto mb-8">
+      <table class="rounded-xl w-full text-left border-collapse">
         <thead>
-          <tr
-            class="
-              bg-[#004a99] text-white text-xs font-bold uppercase tracking-wider
-            "
-          >
+          <tr class="bg-[#004a99] text-white text-xs font-bold uppercase tracking-wider">
             <th class="px-4 py-3 border-r border-[#ffffff22]">Descrição do Serviço</th>
             <th class="px-4 py-3 text-center border-r border-[#ffffff22] w-24">Quantidade</th>
             <th class="px-4 py-3 text-right border-r border-[#ffffff22] w-32">Preço Unit.</th>
@@ -177,14 +173,32 @@
             <tr class="hover:bg-slate-50/50 transition-colors">
               <td class="px-4 py-4 text-sm font-medium text-slate-800"><%= item.description %></td>
               <td class="px-4 py-4 text-center text-sm font-mono text-slate-600"><%= item.quantity %></td>
-              <td class="px-4 py-4 text-right text-sm font-mono text-slate-600">$
-                <%= number_with_precision(item.unit_price, precision: 2) %></td>
-              <td class="px-4 py-4 text-right text-sm font-mono font-bold text-slate-900">$
-                <%= number_with_precision(item.subtotal, precision: 2) %></td>
+              <td class="px-4 py-4 text-right text-sm font-mono text-slate-600">$ <%= number_with_precision(item.unit_price, precision: 2) %></td>
+              <td class="px-4 py-4 text-right text-sm font-mono font-bold text-slate-900">$ <%= number_with_precision(item.subtotal, precision: 2) %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
+
+    <%# ---- Cards (mobile) ---- %>
+    <div class="sm:hidden space-y-2 mb-8">
+      <div class="grid grid-cols-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1 pb-1 border-b border-slate-100">
+        <span>Descrição</span>
+        <span class="text-center">Qtd × Preço</span>
+        <span class="text-right">Subtotal</span>
+      </div>
+      <% @invoice.line_items.each do |item| %>
+        <div class="grid grid-cols-3 items-center gap-2 px-1 py-3 border-b border-slate-100 last:border-0">
+          <p class="text-sm font-medium text-slate-800 leading-snug"><%= item.description %></p>
+          <p class="text-center text-xs font-mono text-slate-500">
+            <%= item.quantity %> × $<%= number_with_precision(item.unit_price, precision: 2) %>
+          </p>
+          <p class="text-right text-sm font-mono font-bold text-slate-900">
+            $<%= number_with_precision(item.subtotal, precision: 2) %>
+          </p>
+        </div>
+      <% end %>
     </div>
 
     <%# ---- Totals ---- %>

@@ -9,20 +9,27 @@
 
     <!-- Desktop Navigation -->
     <div class="hidden sm:flex items-center space-x-8">
-      <%= link_to "Invoices",
-      invoices_path,
-      class:
-        "font-medium text-sm #{controller_name == "invoices" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
 
-      <%= link_to "Clients",
-      clients_path,
-      class:
-        "font-medium text-sm transition-colors duration-200 #{controller_name == "clients" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
 
-      <%= link_to "Settings",
-      edit_business_settings_path,
-      class:
-        "font-medium text-sm transition-colors duration-200 #{controller_name == "business_settings" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
+        <%= link_to "Invoices",
+        invoices_path,
+        class:
+          "font-medium text-sm #{controller_name == "invoices" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
+
+        <%= link_to "Clients",
+        clients_path,
+        class:
+          "font-medium text-sm transition-colors duration-200 #{controller_name == "clients" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
+
+        <%= link_to "Settings",
+        edit_business_settings_path,
+        class:
+          "font-medium text-sm transition-colors duration-200 #{controller_name == "business_settings" ? "text-indigo-600" : "text-slate-500 hover:text-slate-800"}" %>
+
+        <%= button_to "Log out",
+          session_path,
+          method: :delete,
+          class: "font-medium text-sm transition-colors duration-200 text-slate-500 hover:text-slate-800 bg-transparent border-0 p-0 cursor-pointer" %>
     </div>
   </div>
 </nav>
@@ -30,9 +37,9 @@
 <!-- Mobile Bottom Navigation -->
 <div
   class="
-    sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100
-    px-6 py-3 z-50 flex items-center justify-around shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]
-  "
+sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100
+px-6 py-3 z-50 flex items-center justify-around shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]
+"
 >
   <%= link_to invoices_path, class: "flex flex-col items-center space-y-1" do %>
     <svg
@@ -88,5 +95,22 @@
     <span
       class="text-[10px] font-bold uppercase tracking-widest <%= controller_name == "business_settings" ? "text-indigo-600" : "text-slate-400" %>"
     >Settings</span>
+  <% end %>
+  <%= button_to session_path,
+                method: :delete,
+                form: { class: "flex" },
+                class: "flex flex-col items-center space-y-1 bg-transparent border-0 p-0 cursor-pointer" do %>
+    <svg
+      class="w-5 h-5 text-slate-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    ><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+      ></path></svg>
+    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Log Out</span>
   <% end %>
 </div>
