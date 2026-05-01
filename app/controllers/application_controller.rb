@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_business
-    @current_business ||= BusinessSetting.current
+    return unless Current.user
+    @current_business ||= BusinessSetting.for(Current.user)
   end
 end

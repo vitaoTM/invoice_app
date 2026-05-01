@@ -53,8 +53,8 @@
                            } %>
 
             <datalist id="clients-list" data-autocomplete-target="datalist">
-              <% Client.order(:name).each do |client| %>
-                <option value="<%= client.name %>" data-id="<%= client.id %>">
+              <% Current.user.clients.order(:name).each do |client| %>
+                <option value="<%= client.name %>" data-id="<%= client.id %>"></option>
               <% end %>
             </datalist>
 

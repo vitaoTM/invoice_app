@@ -1,15 +1,11 @@
 class BusinessSetting < ApplicationRecord
+  belongs_to :user
   validates :name, presence: true
   validates :currency, presence: true
 
-  # Singleton accessor — always returns the one company record
-  def self.current
-    first_or_create!(
-      name: "Personal Concierge & Tours",
-      tagline: "Aruba Tourist Services",
-      address: "Oranjestad, Aruba",
-      registration_number: "H42115.0",
-      registration_label: "KvK Aruba",
+  def self.for(user)
+    user.business_setting || user.create_business_setting!(
+      name: "My Business",
       currency: "USD",
       payment_terms_days: 15
     )

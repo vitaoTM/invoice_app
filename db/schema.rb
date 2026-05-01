@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_29_163338) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_30_000003) do
   create_table "business_settings", force: :cascade do |t|
     t.string "address", default: "Oranjestad, Aruba"
     t.datetime "created_at", null: false
@@ -24,6 +24,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_29_163338) do
     t.string "registration_number", default: "H42115.0"
     t.string "tagline", default: "Aruba Tourist Services"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_business_settings_on_user_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -35,8 +37,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_29_163338) do
     t.text "notes"
     t.string "phone"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["company"], name: "index_clients_on_company"
     t.index ["name"], name: "index_clients_on_name"
+    t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -52,9 +56,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_29_163338) do
     t.decimal "tax_amount", precision: 10, scale: 2, default: "0.0"
     t.string "tax_label", default: "Aruba Health Tax/Fees"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["invoice_number"], name: "index_invoices_on_invoice_number", unique: true
     t.index ["status"], name: "index_invoices_on_status"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -85,7 +91,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_29_163338) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "business_settings", "users"
+  add_foreign_key "clients", "users"
   add_foreign_key "invoices", "clients"
+  add_foreign_key "invoices", "users"
   add_foreign_key "line_items", "invoices"
   add_foreign_key "sessions", "users"
 end

@@ -2,7 +2,8 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[show edit update destroy pdf]
 
   def index
-    @invoices = Invoice.includes(:client, :line_items)
+    @invoices = Current.user.invoices
+                       .includes(:client, :line_items)
                        .by_status(params[:status])
                        .recent_first
   end
@@ -12,17 +13,16 @@ class InvoicesController < ApplicationController
   end
 
   def new
-    @invoice = Invoice.new(
+    @invoice = Current.user.invoices.build(
       invoice_date: Date.current,
       tax_label: "Aruba Health Tax/Fees",
       tax_amount: 0.0
     )
-    # Build one empty line item so the form has at least one row
     @invoice.line_items.build
   end
 
   def create
-    @invoice = Invoice.new(invoice_params)
+    @invoice = Current.user.invoices.build(invoice_params)
 
     if @invoice.save
       redirect_to @invoice, notice: "Invoice created successfully."
@@ -73,7 +73,7 @@ class InvoicesController < ApplicationController
   private
 
   def set_invoice
-    @invoice = Invoice.includes(:client, :line_items).find(params[:id])
+    @invoice = Current.user.invoices.includes(:client, :line_items).find(params[:id])
   end
 
   # Strong params — note line_items_attributes with :id and :_destroy

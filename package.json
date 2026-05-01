@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@herb-tools/dev-tools": "^0.10.1",
     "puppeteer": "^24.40.0"
   }
 }

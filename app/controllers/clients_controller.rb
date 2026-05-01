@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.order(:name)
+    @clients = Current.user.clients.order(:name)
   end
 
   def show
@@ -10,11 +10,11 @@ class ClientsController < ApplicationController
   end
 
   def new
-    @client = Client.new
+    @client = Current.user.clients.build
   end
 
   def create
-    @client = Client.new(client_params)
+    @client = Current.user.clients.build(client_params)
 
     if @client.save
       redirect_to clients_path, notice: "Client created."
@@ -44,7 +44,7 @@ class ClientsController < ApplicationController
   private
 
   def set_client
-    @client = Client.find(params[:id])
+    @client = Current.user.clients.find(params[:id])
   end
 
   def client_params
