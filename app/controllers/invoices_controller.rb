@@ -14,6 +14,7 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Current.user.invoices.build(
+      client_id: params[:client_id],
       invoice_date: Date.current,
       tax_label: "Aruba Health Tax/Fees",
       tax_amount: 0.0

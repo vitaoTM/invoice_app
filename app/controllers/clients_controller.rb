@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Current.user.clients.order(:name)
+    @clients = Current.user.clients.ordered
   end
 
   def show
@@ -17,7 +17,11 @@ class ClientsController < ApplicationController
     @client = Current.user.clients.build(client_params)
 
     if @client.save
-      redirect_to clients_path, notice: "Client created."
+      respond_to do |format|
+        format.html { redirect_to clients_path, notice: "Client created." }
+        format.turbo_stream
+      end
+
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,9 +39,12 @@ class ClientsController < ApplicationController
 
   def destroy
     if @client.destroy
-      redirect_to clients_path, notice: "Client deleted."
+      respond_to do |format|
+        format.html { redirect_to clients_path, notice: "Client deleted." }
+        format.turbo_stream
+      end
     else
-      redirect_to clients_path, alert: "Cannot delete client with invoices."
+      flash[notice] = "Cannot delete client with invoices."
     end
   end
 
