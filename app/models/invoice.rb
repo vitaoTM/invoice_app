@@ -17,6 +17,12 @@ class Invoice < ApplicationRecord
   scope :by_status, ->(status) { where(status: status) if status.present? }
   scope :recent_first, -> { order(invoice_date: :desc, created_at: :desc) }
 
+  scope :search, ->(q) {
+    joins(:client).where(
+      "invoices.invoice_number LIKE :q  OR clients.name LIKE :q", q: "%#{q}%"
+    ) if q.present?
+  }
+
   STATUSES = %w[draft sent paid cancelled].freeze
 
   def subtotal

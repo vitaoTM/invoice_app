@@ -58,3 +58,8 @@
   border: 1px solid #e2e8f0 !important;
   font-size: 0.875rem !important;
 }
+
+/* Hide native browser clear button on search inputs */
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}

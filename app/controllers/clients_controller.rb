@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Current.user.clients.ordered
+    @clients = Current.user.clients.ordered.search(params[:q])
   end
 
   def show

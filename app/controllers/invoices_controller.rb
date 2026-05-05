@@ -5,6 +5,7 @@ class InvoicesController < ApplicationController
     @invoices = Current.user.invoices
                        .includes(:client, :line_items)
                        .by_status(params[:status])
+                       .search(params[:q])
                        .recent_first
   end
 

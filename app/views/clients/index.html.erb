@@ -3,7 +3,7 @@
     <div>
       <h1 class="text-2xl font-black text-slate-900 tracking-tight">Clients</h1>
       <p class="text-sm text-slate-500 mt-1 font-medium">
-        <%= pluralize(@clients.count, 'client') %> registered in your system.
+        <%#= pluralize(@clients.count, 'client') %> registered in your system.
       </p>
     </div>
 
@@ -14,6 +14,23 @@
       New Client
     <% end %>
   </header>
+
+  <%= form_with url: clients_path, method: :get, data: { turbo_frame: "clients_results" } do |f| %>
+    <div class="relative">
+      <%= f.search_field :q,
+            value: params[:q],
+            placeholder: "Search name, country or email...",
+            class: "w-full rounded-xl border-slate-200 text-sm px-4 py-2.5 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 #{"pr-8" if params[:q].present?}" %>
+      <% if params[:q].present? %>
+        <%= link_to clients_path, data: { turbo_frame: "clients_results" },
+              class: "absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 transition-colors" do %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 
   <%= turbo_frame_tag Client.new %>
 
