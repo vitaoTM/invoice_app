@@ -1,3 +1,21 @@
+<%# Collapse the inline form on the invoice page %>
+<%= turbo_stream.update "new_client_inline", "" %>
+
+<%# Append new option to the invoice form's client datalist %>
+<%= turbo_stream.append "clients-list" do %>
+  <option value="<%= @client.name %>" data-id="<%= @client.id %>"></option>
+<% end %>
+
+<%# Dispatch a client:created event so the autocomplete controller auto-selects the new client %>
+<%= turbo_stream.append "new_client_inline" do %>
+  <div data-controller="client-created"
+       data-client-created-id-value="<%= @client.id %>"
+       data-client-created-name-value="<%= @client.name %>">
+  </div>
+<% end %>
+
+<%# On the clients index page, prepend the new card and clear the new-client form %>
 <%= turbo_stream.prepend "clients", @client %>
 <%= turbo_stream.update Client.new, "" %>
+
 <%= render_turbo_stream_flash_messages %>

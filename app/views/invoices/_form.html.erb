@@ -82,21 +82,19 @@
                      class:
                        "py-2 px-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm shadow-sm" %>
           </div>
-
-          <%= turbo_stream_from "clients" do %>
-            <%= link_to "New Client", 
-                          new_client_path, 
-                          data: { turbo_stream: },
-                          class: "inline-flex items-center 
-                                  px-4 py-2 bg-blue-500
-                                  hover:bg-blue-600
-                                  text-white
-                                  text-xs font-bold rounded-lg
-                                  transition-colors duration-200 uppercase
-                                  tracking-wide border border-slate-200 mt-5" %>
-          <% end %>
-
         </div>
+
+        <%= link_to "New Client", new_client_path,
+              data: { turbo_frame: "new_client_inline" },
+              class: "inline-flex items-center
+                      px-4 py-2 bg-blue-500
+                      hover:bg-blue-600
+                      text-white
+                      text-xs font-bold rounded-lg
+                      transition-colors duration-200 uppercase
+                      tracking-wide border border-slate-200" %>
+
+        <%= turbo_frame_tag "new_client_inline", class: "block" %>
       </div>
     </div>
     <!-- Event Details -->

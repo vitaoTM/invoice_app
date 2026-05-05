@@ -1,0 +1,9 @@
+<%= turbo_stream.update "new_client_inline", "" %>
+<%= turbo_stream.append "clients-list" do %>
+  <option value="<%= @client.name %>" data-id="<%= @client.id %>"></option>
+<% end %>
+<%= turbo_stream.replace "client-hidden-field" do %>
+  <input type="hidden" id="client-hidden-field" name="invoice[client_id]" value="<%= @client.id %>"
+         data-autocomplete-target="hidden">
+<% end %>
+<%= render_turbo_stream_flash_messages %>
