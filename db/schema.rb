@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_30_000003) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_05_192325) do
   create_table "business_settings", force: :cascade do |t|
     t.string "address", default: "Oranjestad, Aruba"
     t.datetime "created_at", null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_30_000003) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
-    t.index ["invoice_number"], name: "index_invoices_on_invoice_number", unique: true
+    t.index ["invoice_number", "user_id"], name: "index_invoices_on_invoice_number_and_user_id", unique: true
     t.index ["status"], name: "index_invoices_on_status"
     t.index ["user_id"], name: "index_invoices_on_user_id"
   end

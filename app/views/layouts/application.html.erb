@@ -27,13 +27,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <%= render "shared/navbar" %>
     <div id="flash">
       <%= render "shared/flash" %>
     </div>
-    <main class="container mx-auto mt-20 px-4 sm:px-6 mb-20 pb-16 sm:pb-0">
+    <main class="flex-1 container mx-auto mt-20 px-4 sm:px-6 mb-20 pb-16 sm:pb-0">
       <%= yield %>
     </main>
+    <%= render "shared/footer" %>
   </body>
 </html>

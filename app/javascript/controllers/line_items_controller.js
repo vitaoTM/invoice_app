@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static values = { currency: String }
+
   static targets = [
     "container",    // <tbody> that holds line item rows
     "template",     // <template> with a blank row
@@ -104,7 +106,7 @@ export default class extends Controller {
     // Update grand total (subtotal + tax)
     const tax = parseFloat(this.hasTaxInputTarget ? this.taxInputTarget.value : 0) || 0
     if (this.hasGrandTotalTarget) {
-      this.grandTotalTarget.textContent = `USD $ ${(subtotal + tax).toFixed(2)}`
+      this.grandTotalTarget.textContent = `${this.currencyValue} $ ${(subtotal + tax).toFixed(2)}`
     }
   }
 }
