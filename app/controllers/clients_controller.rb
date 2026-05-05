@@ -19,7 +19,7 @@ class ClientsController < ApplicationController
     if @client.save
       respond_to do |format|
         format.html { redirect_to clients_path, notice: "Client created." }
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Client created." }
       end
 
     else
@@ -38,13 +38,14 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    if @client.destroy
-      respond_to do |format|
+    respond_to do |format|
+      if @client.destroy
         format.html { redirect_to clients_path, notice: "Client deleted." }
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Client deleted." }
+      else
+        format.html { redirect_to clients_path, alert: "Cannot delete a client that has invoices." }
+        format.turbo_stream { flash.now[:alert] = "Cannot delete a client that has invoices." }
       end
-    else
-      flash[notice] = "Cannot delete client with invoices."
     end
   end
 

@@ -2,22 +2,17 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    // Automatically close after 5 seconds
-    this.timeout = setTimeout(() => {
-      this.close()
-    }, 5000)
+    this.timeout = setTimeout(() => this.close(), 4000)
   }
 
   close() {
-    this.element.classList.add("animate-out", "fade-out", "slide-out-to-top-4")
-    this.element.addEventListener("animationend", () => {
-      this.element.remove()
-    }, { once: true })
+    this.element.style.transition = "opacity 0.3s ease-out, transform 0.3s ease-out"
+    this.element.style.opacity = "0"
+    this.element.style.transform = "translateY(-0.5rem)"
+    setTimeout(() => this.element.remove(), 300)
   }
 
   disconnect() {
-    if (this.timeout) {
-      clearTimeout(this.timeout)
-    }
+    clearTimeout(this.timeout)
   }
 }

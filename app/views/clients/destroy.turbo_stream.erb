@@ -1,1 +1,2 @@
-<%= turbo_stream.remove @client %>
+<%= turbo_stream.remove @client if @client.destroyed? %>
+<%= render_turbo_stream_flash_messages %>

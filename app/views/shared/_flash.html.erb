@@ -1,53 +1,25 @@
-<div class="fixed top-24 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none">
-  <% flash.each do |type, message| %>
-    <% 
-      case type.to_sym
-      when :notice
-        bg_color = "bg-indigo-50"
-        border_color = "border-indigo-100"
-        text_color = "text-indigo-800"
-        icon_color = "text-indigo-400"
-        icon = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />'
-      when :alert, :error
-        bg_color = "bg-rose-50"
-        border_color = "border-rose-100"
-        text_color = "text-rose-800"
-        icon_color = "text-rose-400"
-        icon = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />'
-      else
-        bg_color = "bg-slate-50"
-        border_color = "border-slate-100"
-        text_color = "text-slate-800"
-        icon_color = "text-slate-400"
-        icon = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />'
-      end
-    %>
-
-    <div
-      class="pointer-events-auto mb-4 animate-in fade-in slide-in-from-top-4 duration-300 flex items-center p-4 rounded-2xl border shadow-lg shadow-100/50"
-      data-controller="flash"
-      data-action="animationend->flash#remove"
-    >
-      <div class="flex-shrink-0">
-        <svg class="h-5 w-5 <%= icon_color %>" viewBox="0 0 20 20" fill="currentColor">
-          <%= icon %>
-        </svg>
-      </div>
-      <div class="ml-3 flex-grow">
-        <p class="text-sm font-bold <%= text_color %>">
-          <%= message %>
-        </p>
-      </div>
+<% flash.each do |flash_type, message| %>
+  <%
+    classes = case flash_type.to_sym
+    when :notice then "bg-emerald-50 border-emerald-200 text-emerald-800"
+    when :alert  then "bg-rose-50 border-rose-200 text-rose-800"
+    else              "bg-blue-50 border-blue-200 text-blue-800"
+    end
+  %>
+  <div
+    class="container mx-auto px-4 sm:px-6 mt-3"
+    data-controller="flash"
+  >
+    <div class="flex items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium <%= classes %>">
+      <span><%= message %></span>
       <button
         type="button"
-        class="ml-auto -mx-1.5 -my-1.5 p-1.5 inline-flex items-center justify-center h-8 w-8 rounded-xl <%= text_color %> hover:bg-white/50 transition-colors"
+        class="ml-4 opacity-60 hover:opacity-100 transition-opacity"
         data-action="flash#close"
+        aria-label="Dismiss"
       >
-        <span class="sr-only">Dismiss</span>
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        &#x2715;
       </button>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
