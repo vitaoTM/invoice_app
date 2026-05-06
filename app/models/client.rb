@@ -7,7 +7,7 @@ class Client < ApplicationRecord
   scope :ordered, -> { order(id: :desc) }
 
   scope :search, ->(q) {
-    where("name LIKE :q OR country LIKE :q OR email LIKE :q", q: "%#{q}%") if q.present?
+    where("name LIKE :q OR country LIKE :q OR email LIKE :q OR phone LIKE :q", q: "%#{q}%") if q.present?
   }
 
   def display_name
