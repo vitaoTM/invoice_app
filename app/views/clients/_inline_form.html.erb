@@ -1,0 +1,47 @@
+<%= form_with(model: client) do |f| %>
+  <% if client.errors.any? %>
+    <div class="bg-rose-50 border border-rose-200 text-rose-800 px-4 py-3 rounded-xl text-sm mb-4">
+      <ul class="list-disc list-inside space-y-1">
+        <% client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="space-y-1">
+      <%= f.label :name, class: "block text-[11px] font-bold text-slate-500 uppercase tracking-widest" %>
+      <%= f.text_field :name, required: true, placeholder: "e.g. John Doe",
+            class: "px-3 py-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 text-sm shadow-sm placeholder:text-slate-300" %>
+    </div>
+
+    <div class="space-y-1">
+      <%= f.label :country, class: "block text-[11px] font-bold text-slate-500 uppercase tracking-widest" %>
+      <%= f.text_field :country, placeholder: "e.g. Brasil, USA",
+            class: "px-3 py-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 text-sm shadow-sm placeholder:text-slate-300" %>
+    </div>
+
+    <div class="space-y-1">
+      <%= f.label :email, class: "block text-[11px] font-bold text-slate-500 uppercase tracking-widest" %>
+      <%= f.email_field :email, placeholder: "client@example.com",
+            class: "px-3 py-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 text-sm shadow-sm placeholder:text-slate-300" %>
+    </div>
+
+    <div class="space-y-1">
+      <%= f.label :phone, class: "block text-[11px] font-bold text-slate-500 uppercase tracking-widest" %>
+      <%= f.text_field :phone, placeholder: "+55 11 9999-9999",
+            class: "px-3 py-2 block w-full rounded-xl border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500 text-sm shadow-sm placeholder:text-slate-300" %>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-4 pt-4 mt-2 border-t border-slate-100">
+    <button type="button"
+            data-action="removals#clear"
+            class="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+      Cancel
+    </button>
+    <%= f.submit "Create Client",
+          class: "px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow-sm transition-colors cursor-pointer" %>
+  </div>
+<% end %>
