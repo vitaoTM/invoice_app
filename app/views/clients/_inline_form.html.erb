@@ -36,11 +36,9 @@
   </div>
 
   <div class="flex items-center justify-end gap-4 pt-4 mt-2 border-t border-slate-100">
-    <button type="button"
-            data-action="removals#clear"
-            class="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
-      Cancel
-    </button>
+    <%= link_to "Cancel", cancel_inline_clients_path,
+              data: { turbo_frame: "new_client_inline" },
+              class: "text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors" %>
     <%= f.submit "Create Client",
           class: "px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow-sm transition-colors cursor-pointer" %>
   </div>

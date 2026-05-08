@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :clients
+  resources :clients do
+    collection { get :cancel_inline }
+  end
   resource :business_settings, only: %i[edit update]
 
   root "invoices#index"

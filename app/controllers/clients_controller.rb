@@ -49,6 +49,9 @@ class ClientsController < ApplicationController
     end
   end
 
+  def cancel_inline
+  end
+
   private
 
   def set_client
