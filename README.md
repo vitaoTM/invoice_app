@@ -2,7 +2,7 @@
 
 A professional-grade **Invoice Management System** built with **Ruby on Rails 8.1**. Designed for service providers and freelancers, this application combines a sleek, responsive UI with robust backend architecture to handle client management, dynamic invoice generation, and pixel-perfect PDF exports.
 
-[![CI](https://github.com/vitaoTM/invoice-app/actions/workflows/ci.yml/badge.svg)](https://github.com/vitaoTM/invoice-app/actions/workflows/ci.yml)
+<!-- [![CI](https://github.com/vitaoTM/invoice-app/actions/workflows/ci.yml/badge.svg)](https://github.com/vitaoTM/invoice-app/actions/workflows/ci.yml) -->
 
 ## ✨ Features
 
